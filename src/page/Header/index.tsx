@@ -6,17 +6,6 @@ import {
 import Button from "../../components/Button";
 import Logo from "./Logo";
 const Header = () => {
-  const handleButtonClick = (name: string) => {
-    switch (name) {
-      case "exams":
-        break;
-      case "classes":
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <header className="flex items-center gap-10 select-none shadow-md p-2">
       <Logo></Logo>
