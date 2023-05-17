@@ -1,13 +1,15 @@
 interface LayoutProps {
   header: React.ReactNode;
-  main: React.ReactNode;
+  children: React.ReactNode;
   footer: React.ReactNode;
 }
-const Layout = ({ header, main, footer }: LayoutProps) => {
+const Layout = ({ header, children, footer }: LayoutProps) => {
   return (
     <div className="grid grid-rows-[1fr_8fr_1fr] h-screen">
       {header}
-      {main}
+      <main className="flex flex-col gap-4 shadow-md p-5 overflow-y-scroll">
+        {children}
+      </main>
       {footer}
     </div>
   );

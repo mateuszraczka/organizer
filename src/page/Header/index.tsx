@@ -21,13 +21,13 @@ const Header = () => {
     <header className="flex items-center gap-10 select-none shadow-md p-2">
       <Logo></Logo>
       <Navigation>
-        <Button variant="horizontal" name="exams">
+        <Button variant="horizontal" name="exams" className="flex gap-1 p-2">
           <MdOutlineLibraryBooks />
-          Exams
+          <span>Sprawdziany</span>
         </Button>
-        <Button variant="horizontal" name="classes">
+        <Button variant="horizontal" name="classes" className="flex gap-1 p-2">
           <MdOutlineGroup />
-          Classes
+          <span>Klasy</span>
         </Button>
       </Navigation>
     </header>
