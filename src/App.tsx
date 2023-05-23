@@ -9,12 +9,21 @@ import NewClass from "./page/NewClass";
 import Footer from "./page/Footer/index";
 import { Routes, Route } from "react-router-dom";
 import ProtectionRoute from "./components/ProtectionRoute";
+import ClassContextProvider from "./contexts/ClassContextProvider";
+
 function App() {
-  const user = "test";
+  const user = "user";
   return (
     <Layout header={<Header />} footer={<Footer />}>
       <Routes>
-
+        <Route
+          path="/"
+          element={
+            <ProtectionRoute user={user}>
+              <Exams />
+            </ProtectionRoute>
+          }
+        />
         <Route
           path="/exams"
           element={
@@ -40,10 +49,12 @@ function App() {
           }
         />
         <Route
-          path="/classes/edit"
+          path="/classes/class"
           element={
             <ProtectionRoute user={user}>
-              <NewClass />
+              <ClassContextProvider>
+                <NewClass />
+              </ClassContextProvider>
             </ProtectionRoute>
           }
         />
