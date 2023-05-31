@@ -5,6 +5,7 @@ import useFetch from "../hooks/useFetch";
 import usePost from "../hooks/usePost";
 import { useEffect } from "react";
 import Redirection from "../components/Redirection";
+import { useNavigate } from "react-router-dom";
 
 export type NewClassContextType = {
   class_: Class;
@@ -29,6 +30,7 @@ const NewClassContextProvider = ({
   children,
 }: NewClassContextProviderProps) => {
   const classId = new URLSearchParams(window.location.search).get("id");
+  const navigate = useNavigate();
   const { data, fetchLoading, fetchSuccess } = useFetch({
     collection_: "teachers/123/classes",
     searchFor: "id",
@@ -75,6 +77,9 @@ const NewClassContextProvider = ({
   useEffect(() => {
     if (fetchSuccess && data.length > 0 && classId) {
       setClass_(data[0]);
+    }
+    else if(fetchSuccess && classId!==null){
+      navigate("/invalidPath");
     }
   }, [fetchSuccess]);
 

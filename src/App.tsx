@@ -7,19 +7,21 @@ import Classes from "./page/Classes";
 import Home from "./page/Home";
 import NewClass from "./page/NewClass";
 import CheckExam from "./page/CheckExam";
+import ExamResults from "./page/ExamResults";
 //PAGES IMPORTS
 import { Routes, Route } from "react-router-dom";
 import ProtectionRoute from "./components/ProtectionRoute";
 import ClassContextProvider from "./contexts/NewClassContextProvider";
 import NewExamContextProvider from "./contexts/NewExamContextProvider";
 import CheckExamContextProvider from "./contexts/CheckExamContextProvider";
-import {Navigate} from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function App() {
-  const user = "user";
+  const user = "teacher";
   return (
     <Layout header={<Header />}>
       <Routes>
+        <Route path="/login" element={<p>Logowanie</p>} />
         <Route
           path="/"
           element={
@@ -46,13 +48,21 @@ function App() {
             </ProtectionRoute>
           }
         />
-        <Route 
+        <Route
           path="/checkexam"
           element={
             <ProtectionRoute user={user}>
               <CheckExamContextProvider>
                 <CheckExam></CheckExam>
               </CheckExamContextProvider>
+            </ProtectionRoute>
+          }
+        />
+        <Route
+          path="/checkexam/result"
+          element={
+            <ProtectionRoute user={user}>
+              <ExamResults></ExamResults>
             </ProtectionRoute>
           }
         />
@@ -74,7 +84,7 @@ function App() {
             </ProtectionRoute>
           }
         />
-        <Route path="/login" element={<p>Logowanie</p>} />
+        <Route path="/invalidPath" element={<p>Invalid path</p>} />
         <Route path="*" element={<Navigate to="/invalidPath"></Navigate>} />
       </Routes>
     </Layout>

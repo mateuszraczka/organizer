@@ -5,6 +5,7 @@ import usePost from "../hooks/usePost";
 import { useEffect } from "react";
 import { Exam } from "../types";
 import Redirection from "../components/Redirection";
+import { useNavigate } from "react-router-dom";
 
 export type NewExamContextType = {
   exam: Exam;
@@ -27,6 +28,7 @@ interface NewClassContextProviderProps {
 
 const NewExamContextProvider = ({ children }: NewClassContextProviderProps) => {
   const examId = new URLSearchParams(window.location.search).get("id");
+  const navigate = useNavigate();
   const { data, fetchLoading, fetchSuccess } = useFetch({
     collection_: "teachers/123/exams",
     searchFor: "id",
@@ -74,6 +76,9 @@ const NewExamContextProvider = ({ children }: NewClassContextProviderProps) => {
     if (fetchSuccess && data.length > 0 && examId) {
       setExam(data[0]);
     }
+    else if(fetchSuccess && examId!==null){
+        navigate("/invalidPath");
+      }
   }, [fetchSuccess]);
 
   return (

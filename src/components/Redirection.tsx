@@ -4,7 +4,7 @@ interface RedirectionProps {
   condition?: boolean;
 }
 
-const Redirection = ({
+const Redirection = ({ // Redirect with page reload
   redirectPath,
   condition,
   children,

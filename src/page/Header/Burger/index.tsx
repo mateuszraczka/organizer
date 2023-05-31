@@ -14,7 +14,7 @@ const Burger = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (e: MouseEvent) => {
+    const handleOutsideClick = (e: TouchEvent) => {
       if (e.target instanceof HTMLElement) {
         if (!e.target.closest(".relative")) {
           setExpand(false);
@@ -32,9 +32,9 @@ const Burger = () => {
         }
       }, 150);
     };
-    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("touchmove", handleOutsideClick);
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("touchmove", handleOutsideClick);
       window.onresize = null;
     };
   }, []);
@@ -46,7 +46,7 @@ const Burger = () => {
   return mobile ? (
     <div>
       <HiMenu
-        className="text-4xl cursor-pointer hover:rotate-90 transition-transform delay-100 duration-150"
+        className={`text-4xl cursor-pointer ${expand?"rotate-90":"rotate-0"} transition-transform delay-100 duration-150`}
         onClick={handleExpand}
       ></HiMenu>
       {expand && (

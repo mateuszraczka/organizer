@@ -6,6 +6,7 @@ import usePost from "../hooks/usePost";
 import { StudentResult } from "../types";
 import { Student } from "../types";
 import { ExamResult } from "../types";
+import Redirection from "../components/Redirection";
 
 type CheckExamContextType = {
   setNotCheckedExercises: React.Dispatch<React.SetStateAction<{ studentId: number; exerciseId: number }[]>>;
@@ -47,8 +48,9 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
   const [notCheckedExercises, setNotCheckedExercises] = useState<
     { studentId: number; exerciseId: number }[]
   >([]);
+  const checkedExamId = crypto.randomUUID();
   const { post, postLoading, postSuccess } = usePost({
-    doc_: `teachers/123/checkedExams/${crypto.randomUUID()}`,
+    doc_: `teachers/123/checkedExams/${checkedExamId}`,
   });
 
   const [studentsResult, setStudentsResult] = useState<StudentResult[]>([]);
@@ -167,7 +169,12 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
         buttonUnlocked,
       }}
     >
-      {children}
+        <Redirection
+            condition={postSuccess}
+            redirectPath={`/checkexam/result?id=${checkedExamId}`}
+        >
+        {children}
+        </Redirection>
     </CheckExamContext.Provider>
   );
 };
