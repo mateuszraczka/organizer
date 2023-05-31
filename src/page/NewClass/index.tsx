@@ -4,9 +4,9 @@ import StudentFields from "./StudentFields";
 import Save from "../../components/Save";
 import ClassField from "./ClassField";
 import { useContext } from "react";
-import { ClassContext } from "../../contexts/ClassContextProvider";
+import { NewClassContext } from "../../contexts/NewClassContextProvider";
 const NewClass = () => {
-  const { saveClass, addStudent } = useContext(ClassContext);
+  const { saveClass, addStudent } = useContext(NewClassContext);
 
   return (
     <>
@@ -23,7 +23,7 @@ const NewClass = () => {
       <article>
         <StudentFields />
       </article>
-      <section>
+      <section className="flex items-end justify-end h-full">
         <Save onClick={saveClass}></Save>
       </section>
     </>

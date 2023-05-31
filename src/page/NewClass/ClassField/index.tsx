@@ -1,12 +1,12 @@
 import Input from "../../../components/Input";
 import Table from "../../../components/Table";
 import TableField from "../../../components/TableField";
-import { ClassContext } from "../../../contexts/ClassContextProvider";
+import { NewClassContext } from "../../../contexts/NewClassContextProvider";
 import { useContext } from "react";
 import { Class } from "../../../types";
 
 const ClassField = () => {
-  const { class_, setClass_ } = useContext(ClassContext);
+  const { class_, setClass_ } = useContext(NewClassContext);
 
   const handleClassFieldChange = (
     value: string | number,
@@ -23,7 +23,6 @@ const ClassField = () => {
         <TableField
           input1={
             <Input
-              variant="horizontal"
               type="text"
               placeholder="Nazwa klasy"
               name="class_name"
@@ -33,7 +32,6 @@ const ClassField = () => {
           }
           input2={
             <Input
-              variant="horizontal"
               type="text"
               placeholder="Opis"
               name="class_description"
@@ -45,7 +43,6 @@ const ClassField = () => {
           }
           input3={
             <Input
-              variant="horizontal"
               type="number"
               placeholder="Rok"
               name="class_year"

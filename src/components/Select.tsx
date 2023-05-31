@@ -4,7 +4,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement>{
 
 const Select = ({children, ...props}:SelectProps) => {
     return (
-        <select {...props}>
+        <select {...props} className="bg-transparent">
             {children}
         </select>
     );

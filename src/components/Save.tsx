@@ -4,7 +4,7 @@ const Save = ({...props}) => {
   return (
     <Button
       variant="horizontal"
-      className="gap-2 bg-green-400 hover:bg-green-300 p-2 rounded-md"
+      className="gap-2 bg-green-400 hover:bg-green-300 p-3 rounded-md"
       {...props}
     >
       <MdSave className="text-xl"></MdSave>

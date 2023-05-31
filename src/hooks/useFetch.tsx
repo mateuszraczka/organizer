@@ -3,7 +3,7 @@ import { firestore } from "../config/firebase";
 import { collection, getDocs, query, where } from "firebase/firestore";
 
 interface useFetchProps {
-  collection_: "classes" | "exams";
+  collection_: string;
   searchFor?: string;
   condition?: string;
 }

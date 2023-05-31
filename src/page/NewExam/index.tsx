@@ -3,8 +3,12 @@ import SubPageTitle from "../../components/SubPageTitle";
 import ExerciseFields from "./ExerciseFields/index"
 import ExamField from "./ExamField/index";
 import Save from "../../components/Save";
+import { useContext } from "react";
+import { NewExamContext } from "../../contexts/NewExamContextProvider";
 
 const NewExam = () => {
+    const { saveExam, addExercise } = useContext(NewExamContext);
+
     return (
         <>
             <section>
@@ -15,13 +19,13 @@ const NewExam = () => {
             </article>
             <section className="flex gap-4 items-center">
                 <SubPageTitle>Zadania</SubPageTitle>
-                <Add></Add>
+                <Add onClick={addExercise}></Add>
             </section>
             <article>
                 <ExerciseFields></ExerciseFields>
             </article>
-            <section>
-                <Save></Save>
+            <section className="flex items-end justify-end h-full">
+                <Save onClick={saveExam}></Save>
             </section>
         </>
     )

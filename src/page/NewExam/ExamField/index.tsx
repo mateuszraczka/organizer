@@ -1,20 +1,27 @@
 import Input from "../../../components/Input";
-import Select from "../../../components/Select";
 import Table from "../../../components/Table";
 import TableField from "../../../components/TableField";
+import { NewExamContext } from "../../../contexts/NewExamContextProvider";
+import { useContext } from "react";
+import { Exam } from "../../../types";
 const ExamField = () => {
+  const { exam, setExam } = useContext(NewExamContext);
+
+  const handleFieldChange = (field: keyof Exam, value: string | number) => {
+    setExam((prevData) => ({
+      ...prevData,
+      [field]: value,
+    }));
+  };
+
   return (
     <section className="flex gap-4 p-2 border-2 border-gray-200">
-      <Table
-        colTitle1="Nazwa sprawdzianu"
-        colTitle2="Opis"
-        colTitle3="Data"
-        colTitle4="Klasa"
-      >
+      <Table colTitle1="Nazwa sprawdzianu" colTitle2="Opis">
         <TableField
           input1={
             <Input
-              variant="horizontal"
+              onChange={(e) => handleFieldChange("name", e.target.value)}
+              value={exam.name}
               type="text"
               placeholder="Nazwa sprawdzianu"
               name="exam_name"
@@ -22,24 +29,12 @@ const ExamField = () => {
           }
           input2={
             <Input
-              variant="horizontal"
+              onChange={(e) => handleFieldChange("description", e.target.value)}
+              value={exam.description}
               type="text"
               placeholder="Opis"
               name="exam_description"
             ></Input>
-          }
-          input3={
-            <Input
-              variant="horizontal"
-              type="date"
-              placeholder="Data"
-              name="exam_date"
-            ></Input>
-          }
-          select={
-            <Select name="exam_class">
-              <option value="klasa">2A</option>
-            </Select>
           }
         ></TableField>
       </Table>

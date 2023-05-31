@@ -4,12 +4,14 @@ import TableField from "../../../components/TableField";
 import { Class, Student } from "../../../types";
 import { StudentFormField } from "../../../types";
 import { useContext } from "react";
-import { ClassContext } from "../../../contexts/ClassContextProvider";
+import { NewClassContext } from "../../../contexts/NewClassContextProvider";
+import { FiDelete } from "react-icons/fi";
 
 const StudentFields = () => {
-  const { class_, setClass_ } = useContext(ClassContext);
+  const { class_, setClass_ } = useContext(NewClassContext);
   const { students } = class_;
-  const handleStudentFieldChange = (
+
+  const handleFieldChange = (
     value: string | number,
     field: keyof StudentFormField,
     id: number
@@ -20,7 +22,6 @@ const StudentFields = () => {
       );
       return { ...prev, students: updatedStudents };
     });
-    console.log(class_)
   };
 
   return (
@@ -35,15 +36,14 @@ const StudentFields = () => {
           const { id, forename, surname, number } = student;
           return (
             <TableField
-              key={`${index}-${student.id}`}
+              key={`${class_.id}-${student.id}`}
               index={index}
               input1={
                 <Input
                   onChange={(e) =>
-                    handleStudentFieldChange(e.target.value, "forename", id)
+                    handleFieldChange(e.target.value, "forename", id)
                   }
                   value={forename}
-                  variant="horizontal"
                   type="text"
                   placeholder="Imię"
                   name={`studentForename-${id}`}
@@ -52,10 +52,9 @@ const StudentFields = () => {
               input2={
                 <Input
                   onChange={(e) =>
-                    handleStudentFieldChange(e.target.value, "surname", id)
+                    handleFieldChange(e.target.value, "surname", id)
                   }
                   value={surname}
-                  variant="horizontal"
                   type="text"
                   placeholder="Nazwisko"
                   name={`studentSurname-${id}`}
@@ -64,15 +63,17 @@ const StudentFields = () => {
               input3={
                 <Input
                   onChange={(e) =>
-                    handleStudentFieldChange(e.target.value, "number", id)
+                    handleFieldChange(e.target.value, "number", id)
                   }
                   value={number}
-                  variant="horizontal"
                   type="number"
                   placeholder="Numer w dzienniku"
                   name={`studentNumber-${id}`}
                   min={1}
                 />
+              }
+              delete_={
+                <FiDelete></FiDelete>
               }
             />
           );

@@ -5,7 +5,7 @@ interface NavigationProps {
 
 const Navigation = ({children, className=""}:NavigationProps) => {
   return (
-    <nav className={className +" "+ "flex gap-4"}>
+    <nav className={className +" "+ "flex gap-4 items-center"}>
       {children}
     </nav>
   );

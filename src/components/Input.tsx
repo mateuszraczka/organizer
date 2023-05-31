@@ -1,18 +1,12 @@
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement>{
-    type: "text" | "password" | "email" | "number" | "date";
-    variant: "horizontal" | "vertical";
+    type: "text" | "password" | "email" | "number" | "date" | "radio";
     className?: string;
 }
 
-const variants = {
-    horizontal: "flex flex-row items-center justify-center",
-    vertical: "flex flex-col items-center justify-center",
-}
-
-const Input = ({className="", variant, ...props}: InputProps) => {
-    const currentVariant = variant === "horizontal" ? variants.horizontal : variants.vertical;
+const Input = ({className="", type, ...props}: InputProps) => {
+    const isRadio = type === "radio";
     return (
-        <input className={className +" "+ currentVariant + " w-full"} {...props}/>
+        <input className={className +" bg-transparent"+(isRadio?"":" w-full")} {...props} type={type}/>
     )
 }
 export default Input;

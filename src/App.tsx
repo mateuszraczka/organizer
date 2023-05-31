@@ -1,26 +1,30 @@
 import Layout from "./layouts/Layout";
-import Header from "./page/Header/index";
-import Exams from "./page/Exams/index";
-//TEST IMPORTS
+import Header from "./page/Header";
+//PAGES IMPORTS
+import Exams from "./page/Exams";
 import NewExam from "./page/NewExam";
 import Classes from "./page/Classes";
+import Home from "./page/Home";
 import NewClass from "./page/NewClass";
-//END OF TEST IMPORTS
-import Footer from "./page/Footer/index";
+import CheckExam from "./page/CheckExam";
+//PAGES IMPORTS
 import { Routes, Route } from "react-router-dom";
 import ProtectionRoute from "./components/ProtectionRoute";
-import ClassContextProvider from "./contexts/ClassContextProvider";
+import ClassContextProvider from "./contexts/NewClassContextProvider";
+import NewExamContextProvider from "./contexts/NewExamContextProvider";
+import CheckExamContextProvider from "./contexts/CheckExamContextProvider";
+import {Navigate} from "react-router-dom";
 
 function App() {
   const user = "user";
   return (
-    <Layout header={<Header />} footer={<Footer />}>
+    <Layout header={<Header />}>
       <Routes>
         <Route
           path="/"
           element={
             <ProtectionRoute user={user}>
-              <Exams />
+              <Home />
             </ProtectionRoute>
           }
         />
@@ -33,10 +37,22 @@ function App() {
           }
         />
         <Route
-          path="/exams/edit"
+          path="/exams/exam"
           element={
             <ProtectionRoute user={user}>
-              <NewExam />
+              <NewExamContextProvider>
+                <NewExam />
+              </NewExamContextProvider>
+            </ProtectionRoute>
+          }
+        />
+        <Route 
+          path="/checkexam"
+          element={
+            <ProtectionRoute user={user}>
+              <CheckExamContextProvider>
+                <CheckExam></CheckExam>
+              </CheckExamContextProvider>
             </ProtectionRoute>
           }
         />
@@ -58,10 +74,8 @@ function App() {
             </ProtectionRoute>
           }
         />
-        <Route
-          path="/login"
-          element={<></>}
-        />
+        <Route path="/login" element={<p>Logowanie</p>} />
+        <Route path="*" element={<Navigate to="/invalidPath"></Navigate>} />
       </Routes>
     </Layout>
   );
