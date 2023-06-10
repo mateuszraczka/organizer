@@ -15,6 +15,7 @@ import ClassContextProvider from "./contexts/NewClassContextProvider";
 import NewExamContextProvider from "./contexts/NewExamContextProvider";
 import CheckExamContextProvider from "./contexts/CheckExamContextProvider";
 import { Navigate } from "react-router-dom";
+import ExamResultsContextProvider from "./contexts/ExamResultsContextProvider";
 
 function App() {
   const user = "teacher";
@@ -62,7 +63,9 @@ function App() {
           path="/checkexam/result"
           element={
             <ProtectionRoute user={user}>
-              <ExamResults></ExamResults>
+              <ExamResultsContextProvider>
+                <ExamResults></ExamResults>
+              </ExamResultsContextProvider>
             </ProtectionRoute>
           }
         />

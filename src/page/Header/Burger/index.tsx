@@ -14,13 +14,22 @@ const Burger = () => {
   };
 
   useEffect(() => {
-    const handleOutsideClick = (e: TouchEvent) => {
+    const handleOutsideClick = (e: TouchEvent | MouseEvent) => {
       if (e.target instanceof HTMLElement) {
         if (!e.target.closest(".relative")) {
           setExpand(false);
         }
       }
     };
+
+    if (window.innerWidth < 768) {
+      console.log("mobile")
+      setMobile(() => true);
+    } else {
+      setExpand(() => false);
+      setMobile(() => false);
+    }
+
     window.onresize = () => {
       setTimeout(() => {
         if (window.innerWidth < 768) {
@@ -33,15 +42,13 @@ const Burger = () => {
       }, 150);
     };
     document.addEventListener("touchmove", handleOutsideClick);
+    document.addEventListener("click", handleOutsideClick);
     return () => {
       document.removeEventListener("touchmove", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideClick);
       window.onresize = null;
     };
   }, []);
-
-  useEffect(() => {
-    console.log(mobile)
-  }, [mobile])
 
   return mobile ? (
     <div>
@@ -51,8 +58,7 @@ const Burger = () => {
       ></HiMenu>
       {expand && (
         <div
-          onClick={handleExpand}
-          className="absolute right-0 p-3 bg-opacity-30 shadow-md backdrop-blur-sm bg-slate-300 flex flex-col gap-2 rounded-md"
+          className="absolute right-0 p-3 bg-opacity-30 shadow-md backdrop-blur-sm bg-slate-300 flex flex-col gap-2 rounded-md z-10 transition"
         >
           <Link to="/exams">
             <Button

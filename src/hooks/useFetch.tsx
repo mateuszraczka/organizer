@@ -6,12 +6,14 @@ interface useFetchProps {
   collection_: string;
   searchFor?: string;
   condition?: string;
+  await_?: string;
 }
 
 const useFetch = ({
   collection_,
   searchFor = "",
   condition,
+  await_,
 }: useFetchProps) => {
   const [data, setData] = useState<any>([]);
   const [fetchLoading, setFetchLoading] = useState<boolean>(true);
@@ -64,7 +66,7 @@ const useFetch = ({
     } else {
       fetchData();
     }
-  }, []);
+  }, [await_]);
 
   return { data, fetchLoading, fetchSuccess };
 };

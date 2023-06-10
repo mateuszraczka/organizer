@@ -7,6 +7,7 @@ import { StudentResult } from "../types";
 import { Student } from "../types";
 import { ExamResult } from "../types";
 import Redirection from "../components/Redirection";
+import {useRef} from "react";
 
 type CheckExamContextType = {
   setNotCheckedExercises: React.Dispatch<React.SetStateAction<{ studentId: number; exerciseId: number }[]>>;
@@ -48,11 +49,12 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
   const [notCheckedExercises, setNotCheckedExercises] = useState<
     { studentId: number; exerciseId: number }[]
   >([]);
-  const checkedExamId = crypto.randomUUID();
-  const { post, postLoading, postSuccess } = usePost({
-    doc_: `teachers/123/checkedExams/${checkedExamId}`,
-  });
+  const checkedExamId = useRef(crypto.randomUUID());
 
+  const { post, postLoading, postSuccess } = usePost({
+    doc_: `teachers/123/checkedExams/${checkedExamId.current}`,
+  });
+  console.log(checkedExamId);
   const [studentsResult, setStudentsResult] = useState<StudentResult[]>([]);
 
   const handleStageChange = () => {
@@ -61,6 +63,7 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
       setButtonUnlocked(() => false);
       setSelectedClass(() => "");
       setSelectedExam(() => "");
+      setNotCheckedExercises(() => []);
     } else if (buttonUnlocked) {
       setSecondStage(() => true);
     }
@@ -91,6 +94,7 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
   const saveCheckedExam = () => {
     if (areAllExercisesChecked()) {
       const examResult: ExamResult = {
+        id: checkedExamId.current,
         examId: selectedExam,
         classId: selectedClass,
         date: new Date(),
@@ -171,7 +175,7 @@ const CheckExamContextProvider = ({ children }: CheckExamContextProps) => {
     >
         <Redirection
             condition={postSuccess}
-            redirectPath={`/checkexam/result?id=${checkedExamId}`}
+            redirectPath={`/checkexam/result?id=${checkedExamId.current}`}
         >
         {children}
         </Redirection>

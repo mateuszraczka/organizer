@@ -42,6 +42,7 @@ const ChooseExamField = () => {
                     <Input
                       type="radio"
                       name="exam"
+                      className="w-[15px] h-[15px]"
                       onChange={() => handleExamChange(id)}
                     />
                   </div>

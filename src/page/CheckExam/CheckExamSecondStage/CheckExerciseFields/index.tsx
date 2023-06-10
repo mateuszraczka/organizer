@@ -69,13 +69,14 @@ const CheckExerciseFields = () => {
           className="flex flex-col justify-center items-center m-[3px]"
           key={i}
         >
-          <span className="text-[8px]">{i}</span>
+          <span className="text-[10px]">{i}</span>
           <Input
             onChange={() => {
               handleExerciseCheck(studentId, exerciseId, i);
               handleFilterNotCheckedExercises(studentId, exerciseId);
             }}
             type="radio"
+            className="w-[15px] h-[15px]"
             name={`student:${studentId}/exercise:${exerciseId}`}
             value={i}
           ></Input>
@@ -86,7 +87,7 @@ const CheckExerciseFields = () => {
   };
 
   return (
-    <section className="grid gap-2 p-2 sm:grid-cols-1 md:grid-cols-2 3xl:grid-cols-3">
+    <section className="grid gap-2 p-2 grid-cols-1 2xl:grid-cols-2">
       {selectedClassData?.students.map((student, index) => {
         const { forename, surname } = student;
         return (
@@ -95,9 +96,9 @@ const CheckExerciseFields = () => {
             className="mt-4 border-2 border-gray-200 p-2 rounded-md"
           >
             <div className="border-b-2 border-gray-200 flex flex-col justify-center items-center">
-              <h4 className="font-bold text-blue-500">
+              <h3 className="font-bold text-blue-500 text-lg p-2">
                 {forename && surname ? `${forename} ${surname}` : "Brak danych"}
-              </h4>
+              </h3>
             </div>
             <Table index={true} colTitle1="Ćwiczenie" colTitle2="Punkty">
               {selectedExamData?.exercises.map(
@@ -106,14 +107,14 @@ const CheckExerciseFields = () => {
                   return (
                     <TableField
                       key={index}
-                      className={
+                      mandatory={
                         notCheckedExercises.find(
                           (notCheckedExercise) =>
                             notCheckedExercise.studentId === student.id &&
                             notCheckedExercise.exerciseId === exercise.id
                         )
-                          ? "bg-red-400"
-                          : ""
+                          ? true
+                          : false
                       }
                       index={index}
                       input1={name}
